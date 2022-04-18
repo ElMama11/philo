@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/18 17:36:31 by mverger          ###   ########.fr       */
+/*   Updated: 2022/04/18 19:31:17 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ void	init_struct(t_global *global, char **av)
 	printf("%d\n",global->time_to_die );
 }
 
+void	create_philo(t_global *global)
+{
+	int	i;
+
+	i = 0;
+	global->philo = malloc(sizeof(global->philo) * global->nb_philo + 1);
+	//mettre forkL et forkR sur chaque philo ?
+}
+
+void	routine(t_global *global)
+{
+	
+}
+
 int	main(int ac, char **av)
 {
 	t_global global; //autoriser 0 ms ?
@@ -35,5 +49,6 @@ int	main(int ac, char **av)
 	init_struct(&global, av);
 	if (parsing(&global, av))
 		return (1);
+	philo(&global);
 	return (0);
 }

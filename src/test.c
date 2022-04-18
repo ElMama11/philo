@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:54:44 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/18 14:51:29 by mverger          ###   ########.fr       */
+/*   Updated: 2022/04/18 18:52:15 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ int main (void)
  
    /* Creation du thread du magasin. */
    printf ("Creation du thread du magasin !\n");
-   ret = pthread_create (
-      & store.thread_store, NULL,
-      fn_store, NULL
-   );
+   ret = pthread_create (&store.thread_store, NULL, fn_store, NULL);
  
    /* Creation des threads des clients si celui du magasin a reussi. */
    if (! ret)
@@ -102,22 +99,13 @@ int main (void)
       printf ("Creation des threads clients !\n");
       for (i = 0; i < NB_CLIENTS; i++)
       {
-         ret = pthread_create (
-            & store.thread_clients [i], NULL,
-            fn_clients, (void *) i
-         );
- 
+         ret = pthread_create(&store.thread_clients [i], NULL, fn_clients, (void *)i);
          if (ret)
-         {
             fprintf (stderr, "%s", strerror (ret));
-         }
       }
    }
    else
-   {
       fprintf (stderr, "%s", strerror (ret));
-   }
- 
  
    /* Attente de la fin des threads. */
    i = 0;
@@ -129,4 +117,13 @@ int main (void)
  
  
    return EXIT_SUCCESS;
+}
+
+void	fill_philo_struct(t_main *main, int i, int j)
+{
+	main->philo[i].id = i + 1;
+	main->philo[i].num_of_times_ate = 0;
+	main->philo[i].time_to_die = 0;
+	main->philo[i].fork.left = i;
+	main->philo[i].fork.right = j;
 }
