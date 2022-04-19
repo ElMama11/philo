@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/18 19:31:17 by mverger          ###   ########.fr       */
+/*   Updated: 2022/04/19 20:16:38 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ void	init_struct(t_global *global, char **av)
 	if (av[5])
 		global->nb_meal_required = ft_atoi(av[5]);
 	printf("%d\n",global->time_to_die );
-}
-
-void	create_philo(t_global *global)
-{
-	int	i;
-
-	i = 0;
-	global->philo = malloc(sizeof(global->philo) * global->nb_philo + 1);
-	//mettre forkL et forkR sur chaque philo ?
 }
 
 void	routine(t_global *global)
@@ -49,6 +40,6 @@ int	main(int ac, char **av)
 	init_struct(&global, av);
 	if (parsing(&global, av))
 		return (1);
-	philo(&global);
+	init_philo(&global);
 	return (0);
 }

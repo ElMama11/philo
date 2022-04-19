@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/18 19:13:12 by mverger          ###   ########.fr       */
+/*   Updated: 2022/04/19 20:16:01 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 /* STRUCTS */
 typedef struct s_philo {
 	int			id;
-	int			nb_times_ate;
+	int			eat_count;
+	int			left_fork;
+	int			right_fork;
 	pthread_t	thread;
 	
 }				t_philo;
@@ -42,5 +44,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /* parsing.c */
 int	parsing(t_global *global, char **av);
+
+/* init_philo.c */
+int	init_philo(t_global *global);
 
 #endif
