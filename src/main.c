@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
+/*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/19 20:16:38 by mverger          ###   ########.fr       */
+/*   Updated: 2022/04/22 14:26:22 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,32 @@ void	init_struct(t_global *global, char **av)
 	global->time_to_sleep = ft_atoi(av[4]);
 	if (av[5])
 		global->nb_meal_required = ft_atoi(av[5]);
-	printf("%d\n",global->time_to_die );
 }
 
 void	routine(t_global *global)
 {
 	
 }
+
+int	init_thread(t_global *global)
+{
+	int	i;
+	int	ret;
+
+	i = 0;
+	while (i < global->nb_philo)
+	{
+		ret = pthread_create(&global->philo[i].thread, NULL, (void *)routine, (void *)global);
+		if (ret != 0)
+		{
+			printf("create thread error\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 
 int	main(int ac, char **av)
 {
@@ -41,5 +60,7 @@ int	main(int ac, char **av)
 	if (parsing(&global, av))
 		return (1);
 	init_philo(&global);
+	if (init_thread(&global) == 1)
+		return (1);
 	return (0);
 }
