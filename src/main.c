@@ -6,25 +6,28 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/22 14:26:22 by mverger          ###   ########.fr       */
+/*   Updated: 2022/04/24 18:43:03 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philo.h"
 
-void	init_struct(t_global *global, char **av)
+void	eat(t_global *global)
 {
-	global->nb_philo = ft_atoi(av[1]);
-	global->time_to_die = ft_atoi(av[2]);
-	global->time_to_eat = ft_atoi(av[3]);
-	global->time_to_sleep = ft_atoi(av[4]);
-	if (av[5])
-		global->nb_meal_required = ft_atoi(av[5]);
+	struct	timeval start;
+	struct	timeval end;
+	
+	gettimeofday(&start, NULL);
+	if (global->fork_available[global->philo])
 }
 
-void	routine(t_global *global)
+void	routine(t_global *global) //type void en arg 
 {
+	//eat
 	
+	//sleep
+
+	//think
 }
 
 int	init_thread(t_global *global)
@@ -62,5 +65,13 @@ int	main(int ac, char **av)
 	init_philo(&global);
 	if (init_thread(&global) == 1)
 		return (1);
+		
+// 	struct timeval start, end;
+// 	gettimeofday(&start, NULL);
+// 	 for (int i = 0; i <1e5 ; i++) {
+//   }
+ 
+//   gettimeofday(&end, NULL);
+//   printf("Time taken to count to 10^5 is : %ld micro seconds\n", end.tv_usec - start.tv_usec);
 	return (0);
 }
