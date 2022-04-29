@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/25 18:15:21 by mverger          ###   ########.fr       */
+/*   Updated: 2022/04/29 15:53:58 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void	eat(t_global *global)
 	}
 }
 
-void	routine(void *global) //type void en arg 
+void	routine(void *philo_void) 
 {
+	t_philo *philo;
+
+	philo = (t_philo *)philo_void;
+	
 	//eat global->philo[i].forkL et forkR
 	
 	//sleep
@@ -44,7 +48,7 @@ int	init_thread(t_global *global)
 	i = 0;
 	while (i < global->nb_philo)
 	{
-		ret = pthread_create(&global->philo[i].thread, NULL, (void *)routine, (void *)global);
+		ret = pthread_create(&global->philo[i].thread, NULL, (void *)routine, &global->philo[i]);
 		if (ret != 0)
 		{
 			printf("thread error\n");
