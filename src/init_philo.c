@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_philo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
+/*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 20:14:48 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/19 20:15:23 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/19 14:13:35 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	init_philo(t_global *global)
 		global->philo[i].eat_count = 0;
 		global->philo[i].left_fork = i;
 		global->philo[i].right_fork = j;
+		global->philo[i].global = global;
 		i++;
 		j++;
-		
 	}
 	global->philo[i].id = i + 1;
 	global->philo[i].eat_count = 0;

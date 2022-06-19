@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/29 15:53:58 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/16 19:36:32 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	main(int ac, char **av)
 	
 	if (ac < 5 || ac > 6)
 	{
-		printf("Wrong numbers of args\n");
+		printf("Wrong numbers of args\n"); 
 		return (1);
 	}
 	init_struct(&global, av);

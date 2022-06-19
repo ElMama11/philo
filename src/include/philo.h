@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/24 17:04:41 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/19 14:16:18 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@
 # include <sys/time.h>
 
 /* STRUCTS */
+
 typedef struct s_philo {
 	int			id;
 	int			eat_count;
 	int			left_fork;
 	int			right_fork;
 	pthread_t	thread;
+	void		*global;
 	
 }				t_philo;
 
