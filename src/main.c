@@ -6,25 +6,23 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/16 19:36:32 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/19 16:33:22 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philo.h"
 
-void	eat(t_global *global)
+int	get_time_in_ms(t_global *global)
 {
-	struct	timeval start;
 	struct	timeval end;
-	int		i;
+	unsigned int	temp;
 	
-	i = 0;
-	gettimeofday(&start, NULL);
-	while (i < global->nb_philo)
-	{
-		
-		i++;
-	}
+	temp = global->start_time.tv_sec * 1000;
+	temp = temp + global->start_time.tv_usec / 1000;
+	gettimeofday(&end, NULL);
+	end.tv_sec *= 1000;
+	end.tv_sec += end.tv_usec / 1000;
+	return ((end.tv_sec - temp));
 }
 
 void	routine(void *philo_void) 
@@ -75,13 +73,9 @@ int	main(int ac, char **av)
 	init_philo(&global);
 	if (init_thread(&global) == 1)
 		return (1);
-		
-// 	struct timeval start, end;
-// 	gettimeofday(&start, NULL);
-// 	 for (int i = 0; i <1e5 ; i++) {
-//   }
- 
-//   gettimeofday(&end, NULL);
-//   printf("Time taken to count to 10^5 is : %ld micro seconds\n", end.tv_usec - start.tv_usec);
+	usleep(2000000);
+	printf("%d\n", get_time_in_ms(&global));
+	usleep(2000000);
+	printf("%d\n", get_time_in_ms(&global));
 	return (0);
 }
