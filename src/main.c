@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/19 16:33:22 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/22 16:50:53 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,42 @@ int	get_time_in_ms(t_global *global)
 	return ((end.tv_sec - temp));
 }
 
-void	routine(void *philo_void) 
+void	eat(t_philo *philo)
+{
+	// pthread_mutex_lock(&((t_global *)philo->global)->forks[philo->left_fork]);
+	// pthread_mutex_lock(&((t_global *)philo->global)->forks[philo->right_fork]);
+	pthread_mutex_lock(philo->global->forks[(philo->id - philo->id % 2) % philo->global->nb_philo]);
+    if (message(philo, FORK))
+        return (1);
+    pthread_mutex_lock(philo->global->forks [(philo->id- 1 + (philo->id % 2)) % philo->global->nb_philo]);
+    if (message(philo, FORK))
+        return (1);
+}
+
+void	death(void *philo_void)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)philo_void;
+	// while (1)
+	// {
+	// 	if ()
+	// }
+}
+
+void	routine(void *philo_void) 
+{
+	t_philo *philo;
+	int		ret;
 	
-	//eat global->philo[i].forkL et forkR
+	philo = (t_philo *)philo_void;
+	pthread_create(philo->death, NULL, (void *)death, &philo);
+	if (ret != 0)
+	{
+		printf("death thread error");
+		return ;
+	}
+	eat(philo);
 	
 	//sleep
 
@@ -57,7 +86,6 @@ int	init_thread(t_global *global)
 	return (0);
 }
 
-
 int	main(int ac, char **av)
 {
 	t_global global; //autoriser 0 ms ?
@@ -73,6 +101,11 @@ int	main(int ac, char **av)
 	init_philo(&global);
 	if (init_thread(&global) == 1)
 		return (1);
+	if (create_forks(&global) == 1)
+	{
+		printf("Mutex error\n");
+		return (1);
+	}
 	usleep(2000000);
 	printf("%d\n", get_time_in_ms(&global));
 	usleep(2000000);

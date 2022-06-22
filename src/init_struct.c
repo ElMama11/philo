@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 15:24:31 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/19 15:52:41 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/22 15:59:06 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	init_struct(t_global *global, char **av)
 		global->nb_meal_required = ft_atoi(av[5]);
 	else
 		global->nb_meal_required = -1;
+	
 }

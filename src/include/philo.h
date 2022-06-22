@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/19 15:51:55 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/22 16:39:59 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ typedef struct s_philo {
 	int			eat_count;
 	int			left_fork;
 	int			right_fork;
+	int			start_sleeping;
+	int			start_eating;
+	int			last_meal_time;
 	pthread_t	thread;
-	void		*global;
+	pthread_t	death;
+	struct s_global		*global;
 	
 }				t_philo;
 
@@ -39,7 +43,7 @@ typedef struct s_global {
 	int				time_to_sleep;
 	int				nb_meal_required;
 	struct timeval	start_time;
-	pthread_mutex_t	*forks;
+	pthread_mutex_t	**forks;
 	t_philo	*philo;
 }				t_global;
 
@@ -55,5 +59,9 @@ int		init_philo(t_global *global);
 
 /* init_struct.c */
 void	init_struct(t_global *global, char **av);
+
+/* init_forks.c */
+int		create_forks(t_global *global);
+void	unlock_forks(t_global *global);
 
 #endif
