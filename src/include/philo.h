@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/22 16:39:59 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/22 20:21:35 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+# define FORK "%d %d has taken a fork\n"
 
 /* STRUCTS */
 
@@ -44,7 +46,7 @@ typedef struct s_global {
 	int				nb_meal_required;
 	struct timeval	start_time;
 	pthread_mutex_t	**forks;
-	t_philo	*philo;
+	t_philo			*philo;
 }				t_global;
 
 /* func_libft */

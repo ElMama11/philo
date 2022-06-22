@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 17:09:05 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/24 18:15:10 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/22 22:27:35 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	create_forks(t_global *global)
 	i = 0;
 	while (i < global->nb_philo)
 	{
-		if (pthread_mutex_init(&global->forks[i], NULL) != 0)
+		if (pthread_mutex_init(global->forks[i], NULL) != 0)
 			return (1);
 		i++;
 	}
@@ -36,7 +36,7 @@ void	unlock_forks(t_global *global)
 	i = 0;
 	while (i < global->nb_philo)
 	{
-		pthread_mutex_unlock(&global->forks[i]);
+		pthread_mutex_unlock(global->forks[i]);
 		i++;
 	}
 }

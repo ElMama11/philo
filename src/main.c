@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/22 16:50:53 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/22 21:09:48 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,34 @@ int	get_time_in_ms(t_global *global)
 	return ((end.tv_sec - temp));
 }
 
-void	eat(t_philo *philo)
+int message (t_philo *philo, char *message)
 {
+	if (message == FORK)
+		printf(FORK, get_time_in_ms(philo->global), philo->id);
+	return (0);
+}
+
+int	eat(t_philo *philo)
+{
+	int	time;
 	// pthread_mutex_lock(&((t_global *)philo->global)->forks[philo->left_fork]);
 	// pthread_mutex_lock(&((t_global *)philo->global)->forks[philo->right_fork]);
+	time = 0;
 	pthread_mutex_lock(philo->global->forks[(philo->id - philo->id % 2) % philo->global->nb_philo]);
     if (message(philo, FORK))
         return (1);
-    pthread_mutex_lock(philo->global->forks [(philo->id- 1 + (philo->id % 2)) % philo->global->nb_philo]);
+    pthread_mutex_lock(philo->global->forks [(philo->id - 1 + (philo->id % 2)) % philo->global->nb_philo]);
     if (message(philo, FORK))
         return (1);
+	philo->start_eating = get_time_in_ms(philo->global);
+	while (time < philo->global->time_to_eat)
+	{
+		time = get_time_in_ms(philo->global);
+		time = time - philo->start_eating;
+	}
+	pthread_mutex_unlock(philo->global->forks[(philo->id - philo->id % 2) % philo->global->nb_philo]);
+	pthread_mutex_unlock(philo->global->forks [(philo->id - 1 + (philo->id % 2)) % philo->global->nb_philo]);
+	return (0);
 }
 
 void	death(void *philo_void)
@@ -54,7 +72,7 @@ void	routine(void *philo_void)
 	int		ret;
 	
 	philo = (t_philo *)philo_void;
-	pthread_create(philo->death, NULL, (void *)death, &philo);
+	ret = pthread_create(&philo->death, NULL, (void *)death, &philo);
 	if (ret != 0)
 	{
 		printf("death thread error");
