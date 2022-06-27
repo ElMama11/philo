@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 20:14:48 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/22 16:00:18 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/27 22:25:46 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,23 @@ int	init_philo(t_global *global)
 	while (j < global->nb_philo)
 	{
 		global->philo[i].id = i + 1;
-		global->philo[i].eat_count = 0;
 		global->philo[i].left_fork = i;
 		global->philo[i].right_fork = j;
 		global->philo[i].start_sleeping = 0;
 		global->philo[i].start_eating = 0;
+		global->philo[i].last_meal_time = 0;
+		global->philo[i].meal_counter = 0;
 		global->philo[i].global = global;
 		i++;
 		j++;
 	}
 	global->philo[i].id = i + 1;
-	global->philo[i].eat_count = 0;
 	global->philo[i].left_fork = i;
 	global->philo[i].right_fork = 0;
 	global->philo[i].start_sleeping = 0;
 	global->philo[i].start_eating = 0;
+	global->philo[i].last_meal_time = 0;
+	global->philo[i].meal_counter = 0;
 	global->philo[i].global = global;
 	return (0);
 }

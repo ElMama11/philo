@@ -6,7 +6,7 @@
 #    By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 14:44:07 by mverger           #+#    #+#              #
-#    Updated: 2022/06/22 21:10:00 by mverger          ###   ########.fr        #
+#    Updated: 2022/06/25 19:07:16 by mverger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ PATHOBJ = obj/
 PATHSRC = src/
 INCLUDE_PATH=include
 DEP = Makefile src/$(INCLUDE_PATH)/philo.h
-SRC =   	main.c func_libft.c parsing.c init_philo.c init_struct.c init_forks.c
+SRC =   	main.c func_libft.c parsing.c init_philo.c init_struct.c init_forks.c philo_utils.c
 	
 HEAD = -I ./src/$(INCLUDE_PATH)/ -I
 OBJ = $(patsubst %.c,$(PATHOBJ)/%.o,$(SRC))

@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/22 20:21:35 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/27 23:56:53 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,22 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-# define FORK "%d %d has taken a fork\n"
+# define FORK "%lu %d has taken a fork\n"
+# define SLEEP "%lu %d is sleeping\n"
+# define THINK "%lu %d is thinking\n"
+# define DEAD "%lu %d died\n"
+# define EAT "%lu %d is eating\n"
 
 /* STRUCTS */
 
 typedef struct s_philo {
 	int			id;
-	int			eat_count;
 	int			left_fork;
 	int			right_fork;
 	int			start_sleeping;
 	int			start_eating;
 	int			last_meal_time;
+	int			meal_counter;
 	pthread_t	thread;
 	pthread_t	death;
 	struct s_global		*global;
@@ -44,7 +48,9 @@ typedef struct s_global {
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_meal_required;
-	struct timeval	start_time;
+	int				is_dead;
+	long long		start_time;
+	pthread_mutex_t	*death;
 	pthread_mutex_t	**forks;
 	t_philo			*philo;
 }				t_global;
@@ -66,4 +72,8 @@ void	init_struct(t_global *global, char **av);
 int		create_forks(t_global *global);
 void	unlock_forks(t_global *global);
 
+/* philo_utils.c */
+unsigned long		ft_get_time(void);
+void	ms_sleep(int time);
+unsigned long	get_timestamp(t_global *global);
 #endif
