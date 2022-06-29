@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/27 23:55:54 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/29 17:56:46 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int message (t_philo *philo, char *message)
 	else if (message == THINK)
 		printf(THINK, get_timestamp(philo->global), philo->id);
 	else if (message == DEAD)
+	{
 		printf(DEAD, get_timestamp(philo->global), philo->id);
+		return (1);	
+	}
 	return (0);
 }
 
@@ -47,12 +50,13 @@ int	eat(t_philo *philo)
     pthread_mutex_lock(philo->global->forks [(philo->id - 1 + (philo->id % 2)) % philo->global->nb_philo]);
     if (message(philo, FORK))
         return (1);
+	pthread_mutex_lock(philo->global->death);
 	if (message(philo, EAT))
         return (1);
+	philo->meal_counter++;
 	ms_sleep(philo->global->time_to_eat);
 	philo->last_meal_time = get_timestamp(philo->global);
 	//printf("last meal = %d\n", philo->last_meal_time);
-	philo->meal_counter++;
 	pthread_mutex_unlock(philo->global->forks[(philo->id - philo->id % 2) % philo->global->nb_philo]);
 	pthread_mutex_unlock(philo->global->forks [(philo->id - 1 + (philo->id % 2)) % philo->global->nb_philo]);
 	return (0);
@@ -63,22 +67,19 @@ void	*death(void *philo_void)
 	t_philo *philo;
 
 	philo = (t_philo *)philo_void;
-	philo->global->death = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-	pthread_detach(philo->death);
-	pthread_mutex_init(philo->global->death, NULL);
 	while (1)
 	{
-		
-		pthread_mutex_lock(philo->global->death);
 		//printf("ts == %lu\n", get_timestamp(philo->global));
-		if ((get_timestamp(philo->global) - philo->last_meal_time) > philo->global->time_to_die)
+		if ((get_timestamp(philo->global) - philo->last_meal_time) > philo->global->time_to_die && philo->meal_counter != philo->global->nb_meal_required)
 		{
 			philo->global->is_dead = 1;
 			message(philo, DEAD);
+			//printf("oui\n");
 			pthread_mutex_unlock(philo->global->death);
 			break ;
 		}
 	}
+	//exit(0);
 	return (NULL) ;
 }
 
@@ -88,13 +89,16 @@ void	*routine(void *philo_void)
 	int		ret;
 	
 	philo = (t_philo *)philo_void;
+	philo->global->death = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(philo->global->death, NULL);
 	ret = pthread_create(&philo->death, NULL, (void *)death, philo);
 	if (ret != 0)
 	{
 		printf("death thread error");
 		return (NULL);
 	}
-	while (philo->meal_counter < philo->global->nb_meal_required)
+	pthread_detach(philo->death);
+	while (philo->meal_counter < philo->global->nb_meal_required && philo->global->is_dead == 0)
 	{
 		if (philo->global->is_dead == 1)
 			break ;
@@ -103,6 +107,8 @@ void	*routine(void *philo_void)
 			pthread_join(philo->death, NULL);
 			return (NULL);
 		}
+		if (philo->global->is_dead == 1)
+			break ;
 		if (ft_sleep(philo))
 		{
 			pthread_join(philo->death, NULL);
@@ -115,6 +121,7 @@ void	*routine(void *philo_void)
 		}
 	}
 	pthread_join(philo->death, NULL);
+	//exit(0);
 	return (NULL);
 }
 
@@ -161,5 +168,6 @@ int	main(int ac, char **av)
 	}
 	while (i < global.nb_philo)
 		pthread_join(global.philo[i++].thread, NULL);
+	//free
 	return (0);
 }

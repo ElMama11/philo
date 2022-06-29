@@ -6,13 +6,13 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/27 23:56:53 by mverger          ###   ########.fr       */
+/*   Updated: 2022/06/29 14:10:35 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-
+ 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
