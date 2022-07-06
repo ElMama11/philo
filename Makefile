@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 14:44:07 by mverger           #+#    #+#              #
-#    Updated: 2022/06/25 19:07:16 by mverger          ###   ########.fr        #
+#    Updated: 2022/07/04 14:56:00 by mverger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCLUDE_PATH=include
 DEP = Makefile src/$(INCLUDE_PATH)/philo.h
 SRC =   	main.c func_libft.c parsing.c init_philo.c init_struct.c init_forks.c philo_utils.c
 	
-HEAD = -I ./src/$(INCLUDE_PATH)/ -I
+HEAD = -I ./src/$(INCLUDE_PATH)/
 OBJ = $(patsubst %.c,$(PATHOBJ)/%.o,$(SRC))
 
 ifeq ($(shell uname),Darwin)
@@ -37,7 +37,7 @@ $(PATHOBJ):
 	
 $(NAME): $(DEP) $(addprefix $(PATHSRC)/,$(SRC)) $(PATHOBJ) $(OBJ) 
 	@$(ECHO) "\r$(GREEN) The .o from $(NAME) are compiled.$(DEFAULT)"
-	@$(GCCF) $(OBJ) -o $(NAME)
+	@$(GCCF) $(OBJ) -o $(NAME) -lpthread
 	@$(ECHO) "$(GREEN)$(NAME)$(DEFAULT) created."
 
 $(PATHOBJ)/%.o: $(PATHSRC)/%.c $(DEP)
