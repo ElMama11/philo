@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   func_libft.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 15:27:14 by mverger           #+#    #+#             */
-/*   Updated: 2022/04/18 17:30:53 by mverger          ###   ########.fr       */
+/*   Updated: 2022/07/15 16:52:57 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,19 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned long	i;
+	unsigned char	*str;
+
+	str = (unsigned char *)b;
+	i = 0;
+	while (i < len)
+	{
+		str[i] = (char)c;
+		i++;
+	}
+	return (b);
 }

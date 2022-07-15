@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/07/06 18:00:46 by mverger          ###   ########.fr       */
+/*   Updated: 2022/07/15 19:33:30 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@
 
 typedef struct s_philo {
 	int			id;
-	int			left_fork;
-	int			right_fork;
 	int			start_sleeping;
 	int			start_eating;
 	int			last_meal_time;

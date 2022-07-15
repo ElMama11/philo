@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 14:51:17 by mverger           #+#    #+#             */
-/*   Updated: 2022/07/06 19:55:05 by mverger          ###   ########.fr       */
+/*   Updated: 2022/07/15 20:28:05 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 int message (t_philo *philo, char *message)
 {
-	pthread_mutex_lock(philo->global->death);
+	//pthread_mutex_lock(philo->global->death);
 	if (philo->global->is_dead == 1)
 	{
-		pthread_mutex_unlock(philo->global->death);
+		//pthread_mutex_unlock(philo->global->death);
 		return (1);
 	}
-	pthread_mutex_unlock(philo->global->death);
+	//pthread_mutex_unlock(philo->global->death);
 	pthread_mutex_lock(philo->global->message);
 	if (message != DEAD)
 		printf(message, get_timestamp(philo->global), philo->id);
@@ -50,15 +50,18 @@ int	eat(t_philo *philo)
 	time = 0;
 	if (philo->meal_counter == philo->global->nb_meal_required)
 		return (1);
+	// LOCK GLOBAL
 	pthread_mutex_lock(philo->global->forks[(philo->id - philo->id % 2) % philo->global->nb_philo]);
     if (message(philo, FORK))
         return (1);
     pthread_mutex_lock(philo->global->forks [(philo->id - 1 + (philo->id % 2)) % philo->global->nb_philo]);
     if (message(philo, FORK))
         return (1);
+	// UNLOCK()
 	pthread_mutex_lock(philo->last_meal);
 	philo->last_meal_time = get_timestamp(philo->global) + philo->global->time_to_eat;
 	pthread_mutex_unlock(philo->last_meal);
+	
 	if (message(philo, EAT))
         return (1);
 	philo->meal_counter++;
@@ -67,7 +70,7 @@ int	eat(t_philo *philo)
 	philo->last_meal_time = philo->last_meal_time - philo->global->time_to_eat;
 	pthread_mutex_unlock(philo->last_meal);
 	//printf("last meal = %d\n", philo->last_meal_time);
-	pthread_mutex_unlock(philo->global->forks[(philo->id - philo->id % 2) % philo->global->nb_philo]);
+	pthread_mutex_unlock(philo->global->forks[(philo->id - philo->id % 2) % philo->global->nb_philo]); // (1 - 1 % 2) % 3 == 0) 2 - 2
 	pthread_mutex_unlock(philo->global->forks [(philo->id - 1 + (philo->id % 2)) % philo->global->nb_philo]);
 	return (0);
 }
@@ -91,7 +94,7 @@ void	*death(void *philo_void)
 			philo->global->is_dead = 1;
 			message(philo, DEAD);
 			pthread_mutex_unlock(philo->global->death);
-			printf("oui\n");
+			printf("oui death\n");
 			return (NULL);
 		}
 		pthread_mutex_unlock(philo->last_meal);
@@ -198,4 +201,11 @@ int	main(int ac, char **av)
 		pthread_join(global.philo[i++].thread, NULL);
 	//free
 	return (0);
+}
+
+int main(void) {
+	// PARSING
+	//		CHECK_ERRORS
+			
+	//
 }
