@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 18:58:30 by mverger           #+#    #+#             */
-/*   Updated: 2022/06/27 20:31:38 by mverger          ###   ########.fr       */
+/*   Updated: 2022/07/06 18:00:19 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ms_sleep(int time)
     }
 }
 
-unsigned long	get_timestamp(t_global *global)
+int	get_timestamp(t_global *global)
 {
 	struct	timeval end;
 
