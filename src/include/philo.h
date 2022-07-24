@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 14:55:19 by mverger           #+#    #+#             */
-/*   Updated: 2022/07/15 19:33:30 by mverger          ###   ########.fr       */
+/*   Updated: 2022/07/16 16:36:04 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@
 /* STRUCTS */
 
 typedef struct s_philo {
-	int			id;
-	int			start_sleeping;
-	int			start_eating;
-	int			last_meal_time;
-	int			meal_counter;
+	int				id;
+	int				start_sleeping;
+	int				start_eating;
+	int				last_meal_time;
+	int				meal_counter;
 	pthread_mutex_t	*last_meal;
-	pthread_t	thread;
-	pthread_t	death;
+	pthread_t		thread;
+	pthread_t		death;
 	struct s_global		*global;
 	
 }				t_philo;
