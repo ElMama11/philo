@@ -7,7 +7,7 @@ void	write_something(t_philo *philo, char *message)
 	else if (message == EAT)
 		printf(EAT, philo->id, get_timestamp(philo->main));
 	else if (message == SLEEP)
-		printf( SLEEP, philo->id, get_timestamp(philo->main));
+		printf(SLEEP, philo->id, get_timestamp(philo->main));
 	else if (message == THINK)
 		printf(THINK, philo->id, get_timestamp(philo->main));
 	else if (message == DEAD)
@@ -30,14 +30,28 @@ void	free_memory(t_main *main)
 	free(main);
 }
 
-int	call_death(t_philo *philo)
+void	call_death(t_main *main) // void?
 {
-	if ((get_timestamp(philo->main) - philo->last_meal_time) > philo->main->args->time_to_die)
+	int	i;
+
+	i = 0;
+	while (1)
 	{
-		write_something(philo, DEAD);
-		return (1);
+		i = 0;
+		while (i < main->args->nb_philo)
+		{
+			if ((get_timestamp(main) - main->philos[i]->last_meal_time) > main->args->time_to_die) // call death dans le main?
+			{
+				write_something(main->philos[i], DEAD);
+			}
+			i++;
+		}
 	}
-	return (0);
+	// if ((get_timestamp(philo->main) - philo->last_meal_time) > philo->main->args->time_to_die)
+	// {
+	// 	write_something(philo, DEAD);
+	// 	return ;
+	// }
 }
 
 void	*philosophers_routine(void *philo_void)
@@ -48,14 +62,11 @@ void	*philosophers_routine(void *philo_void)
 	printf("id = %d\n", philo->id);
 	while (philo->meal_counter < philo->main->args->nb_meal_required)
 	{
-		if (i_must_eat(philo))
-			write_something(philo, EAT);
-		else if (i_must_sleep(philo))
-		 	write_something(philo, SLEEP);
-		else if (i_must_think(philo))
-			write_something(philo, THINK);
-		if (call_death(philo))
-			break;
+		i_must_eat(philo);
+		i_must_sleep(philo);
+		i_must_think(philo);
+		// if (call_death(philo))
+		// 	return (NULL);
 	}
 	return (NULL);
 }
@@ -73,3 +84,4 @@ int	main(int ac, char **av)
 	free_memory(main);
 	return (0);
 }
+// return 1 et 0; clean code dans actions; multiplication de fichier;

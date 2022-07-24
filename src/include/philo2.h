@@ -32,6 +32,7 @@ typedef struct s_philo {
 
 typedef struct s_main {
 	pthread_t		*threads;
+	pthread_t		*death;
 	pthread_mutex_t	**forks;
 	pthread_mutex_t *take_forks;
 	t_philo			**philos;
@@ -40,9 +41,9 @@ typedef struct s_main {
 }					t_main;
 
 /* toto_actions.c */
-int				i_must_sleep(t_philo *philo);
-int				i_must_think(t_philo *philo);
-int				i_must_eat(t_philo *philo);
+void			i_must_sleep(t_philo *philo);
+void			i_must_think(t_philo *philo);
+void			i_must_eat(t_philo *philo);
 
 /* toto_init.c */
 void 			init(t_main *main);
@@ -58,5 +59,6 @@ int				get_timestamp(t_main *main);
 /* toto_main.c */
 void			*philosophers_routine(void *philo_void);
 void			write_something(t_philo *philo, char *message);
+void			call_death(t_main *main);
 
 #endif
