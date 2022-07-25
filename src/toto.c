@@ -19,10 +19,23 @@ void	wait_until_end(t_main *main)
 	int i;
 
 	i = 0;
+
+	while (true) {
+		int i = 0;
+		while i < nb_philo; i++
+			if is_philo_dead(philo[i])*
+				print_death();
+				break ;
+			sleep(1)
+	}
+	
 	while (i <= main->args->nb_philo) {
 		pthread_join(main->threads[i], NULL);
 		i++;
 	}
+
+	return ;
+
 }
 
 void	free_memory(t_main *main)
@@ -42,6 +55,7 @@ void	call_death(t_main *main) // void?
 		{
 			if ((get_timestamp(main) - main->philos[i]->last_meal_time) > main->args->time_to_die) // call death dans le main?
 			{
+				//ecrire la mort ds is_dead
 				write_something(main->philos[i], DEAD);
 			}
 			i++;
@@ -62,7 +76,9 @@ void	*philosophers_routine(void *philo_void)
 	printf("id = %d\n", philo->id);
 	while (philo->meal_counter < philo->main->args->nb_meal_required)
 	{
-		i_must_eat(philo);
+		// if i_must_eat(philo)
+		// 	return NULL;
+		i_must_eat(philo)
 		i_must_sleep(philo);
 		i_must_think(philo);
 		// if (call_death(philo))
@@ -85,3 +101,5 @@ int	main(int ac, char **av)
 	return (0);
 }
 // return 1 et 0; clean code dans actions; multiplication de fichier;
+//lock qd ecrire et lecture last_meal et pour is_dead
+//check simulation_is_ended dans la boucle sleep (50ms) pour eat 

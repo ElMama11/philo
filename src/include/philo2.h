@@ -37,6 +37,7 @@ typedef struct s_main {
 	pthread_mutex_t *take_forks;
 	t_philo			**philos;
 	int				start_time;
+	int				is_dead;
 	t_args			*args;
 }					t_main;
 
