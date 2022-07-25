@@ -1,6 +1,6 @@
 #include "philo2.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+static int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
 	unsigned char	*str1;
@@ -47,7 +47,7 @@ static int	check_str_in_args(t_args *args, char **av)
 	return (0);
 }
 
-int is_input_errors(t_args *args, char **av)
+static int is_input_errors(t_args *args, char **av)
 {
 	if (check_str_in_args(args, av))
 		return(1);
@@ -73,7 +73,7 @@ int is_input_errors(t_args *args, char **av)
 int	parsing(t_main *main, int ac, char **av)
 {
 	main->args = (t_args*)malloc(sizeof(t_args));
-	memset(main->args, 0, sizeof(main->args));
+	memset(main->args, 0, sizeof(t_args));
 
 	if (ac == 5 || ac == 6)
 	{
@@ -89,6 +89,6 @@ int	parsing(t_main *main, int ac, char **av)
 			return 1;
 		return (0);
 	}
-	printf("Usage: ....");
+	printf("Usage: number_of_philosophers time_to_die time_to_eat time_to_sleep [nb_meal_required]");
 	return (1);
 }

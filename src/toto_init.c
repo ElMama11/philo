@@ -1,6 +1,12 @@
 #include "philo2.h"
 
-int	create_forks(t_main *main)
+static void	init_mutex(t_main *main)
+{
+	main->take_forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(main->take_forks, NULL);
+}
+
+static int	create_forks(t_main *main)
 {
 	int	i;
 
@@ -18,7 +24,7 @@ int	create_forks(t_main *main)
 	return (0);
 }
 
-int create_philo_structs(t_main *main) {
+static int create_philo_structs(t_main *main) {
 	int i;
 
 	i = 0;
@@ -36,7 +42,7 @@ int create_philo_structs(t_main *main) {
 }
 
 
-int	create_philo_threads(t_main *main)
+static int	create_philo_threads(t_main *main)
 {
 	int	i;
 	int	ret;
@@ -44,7 +50,7 @@ int	create_philo_threads(t_main *main)
 	i = 0;
 	while (i < main->args->nb_philo)
 	{
-		main->threads = (pthread_t*)malloc(sizeof(pthread_t) * main->args->nb_philo);
+		main->threads = (pthread_t *)malloc(sizeof(pthread_t) * main->args->nb_philo);
 		ret = pthread_create(&(main->threads[i]), NULL, (void *)philosophers_routine, (void*)(main->philos[i]));
 		if (ret != 0)
 		{
@@ -57,9 +63,24 @@ int	create_philo_threads(t_main *main)
 	return (0);
 }
 
+static int	create_death_thread(t_main *main)
+{
+	int	ret;
+	main->death = (pthread_t *)malloc(sizeof(pthread_t));
+	ret = pthread_create(main->death, NULL, (void *)call_death, (void *)(main));
+		if (ret != 0)
+		{
+			printf("thread error\n");
+			return (1);
+		}
+	return (0);
+}
+
 void init(t_main *main)
 {
 	create_forks(main);
 	create_philo_structs(main);
 	create_philo_threads(main);
+	create_death_thread(main);
+	init_mutex(main);
 }

@@ -1,13 +1,13 @@
 #include "philo2.h"
-
-void write_something(t_philo *philo, char *message)
+//[number_of_philosophers] [time_to_die] [time_to_eat] [time_to_sleep]
+void	write_something(t_philo *philo, char *message)
 {
 	if (message == FORK)
 		printf(FORK, philo->id, get_timestamp(philo->main));
 	else if (message == EAT)
 		printf(EAT, philo->id, get_timestamp(philo->main));
 	else if (message == SLEEP)
-		printf( SLEEP, philo->id, get_timestamp(philo->main));
+		printf(SLEEP, philo->id, get_timestamp(philo->main));
 	else if (message == THINK)
 		printf(THINK, philo->id, get_timestamp(philo->main));
 	else if (message == DEAD)
@@ -30,29 +30,28 @@ void	free_memory(t_main *main)
 	free(main);
 }
 
-void i_must_sleep(t_philo *philo)
+void	call_death(t_main *main) // void?
 {
-    write_something(philo, SLEEP);
-    ms_sleep(philo->main->args->time_to_sleep);
-}
+	int	i;
 
-int	i_must_eat(t_philo *philo)
-{
-	if (philo->meal_counter == philo->main->args->nb_meal_required)
-		return (0);
-	// LOCK GLOBAL
-	pthread_mutex_lock(philo->main->forks[(philo->id - philo->id % 2) % philo->main->args->nb_philo]);
-	write_something(philo, FORK);
-    pthread_mutex_lock(philo->main->forks [(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]);
-	write_something(philo, FORK);
-	// UNLOCK()
-	philo->last_meal_time = get_timestamp(philo->main) + philo->main->args->time_to_eat;	
-	write_something(philo, EAT);
-	philo->meal_counter++;
-	ms_sleep(philo->main->args->time_to_eat);
-	pthread_mutex_unlock(philo->main->forks[(philo->id - philo->id % 2) % philo->main->args->nb_philo]);
-	pthread_mutex_unlock(philo->main->forks [(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]);
-	return (1);
+	i = 0;
+	while (1)
+	{
+		i = 0;
+		while (i < main->args->nb_philo)
+		{
+			if ((get_timestamp(main) - main->philos[i]->last_meal_time) > main->args->time_to_die) // call death dans le main?
+			{
+				write_something(main->philos[i], DEAD);
+			}
+			i++;
+		}
+	}
+	// if ((get_timestamp(philo->main) - philo->last_meal_time) > philo->main->args->time_to_die)
+	// {
+	// 	write_something(philo, DEAD);
+	// 	return ;
+	// }
 }
 
 void	*philosophers_routine(void *philo_void)
@@ -61,16 +60,13 @@ void	*philosophers_routine(void *philo_void)
 
 	philo = (t_philo *)philo_void;
 	printf("id = %d\n", philo->id);
-	while (1)
+	while (philo->meal_counter < philo->main->args->nb_meal_required)
 	{
-		if (i_must_eat(philo))
-			write_something(philo, EAT);
-		else if (i_must_sleep(philo))
-		 	write_something(philo, SLEEP);
-		else if (i_must_think())
-			write_something(philo, THINK);
-		// if (call_death())
-		// 	break;	
+		i_must_eat(philo);
+		i_must_sleep(philo);
+		i_must_think(philo);
+		// if (call_death(philo))
+		// 	return (NULL);
 	}
 	return (NULL);
 }
@@ -88,3 +84,4 @@ int	main(int ac, char **av)
 	free_memory(main);
 	return (0);
 }
+// return 1 et 0; clean code dans actions; multiplication de fichier;
