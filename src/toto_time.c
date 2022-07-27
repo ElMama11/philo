@@ -20,6 +20,25 @@ void	ms_sleep(int time)
     }
 }
 
+int	ms_sleep_with_simulation_ended_check(int time, t_philo *philo)
+{
+    int     tv_start;
+    int     tv_current;
+    tv_start = ft_get_time();
+    tv_current = ft_get_time();
+    while ((tv_current - tv_start) < time)
+    {
+        usleep(50);
+		if (is_simulation_ended(philo))
+		{
+			unlock_forks(philo);
+			return (1);
+		}
+        tv_current = ft_get_time();
+    }
+	return (0);
+}
+
 int	get_timestamp(t_main *main)
 {
 	struct	timeval end;

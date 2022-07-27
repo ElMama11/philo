@@ -35,6 +35,8 @@ typedef struct s_main {
 	pthread_t		*death;
 	pthread_mutex_t	**forks;
 	pthread_mutex_t *take_forks;
+	pthread_mutex_t	*is_dead_mutex;
+	pthread_mutex_t	*last_meal_mutex;
 	t_philo			**philos;
 	int				start_time;
 	int				is_dead;
@@ -44,7 +46,9 @@ typedef struct s_main {
 /* toto_actions.c */
 void			i_must_sleep(t_philo *philo);
 void			i_must_think(t_philo *philo);
-void			i_must_eat(t_philo *philo);
+int				i_must_eat(t_philo *philo);
+int				is_simulation_ended(t_philo *philo);
+void			unlock_forks(t_philo *philo);
 
 /* toto_init.c */
 void 			init(t_main *main);
@@ -56,10 +60,11 @@ int				parsing(t_main *main, int ac, char **av);
 unsigned long	ft_get_time(void);
 void			ms_sleep(int time);
 int				get_timestamp(t_main *main);
+int				ms_sleep_with_simulation_ended_check(int time, t_philo *philo);
 
 /* toto_main.c */
 void			*philosophers_routine(void *philo_void);
 void			write_something(t_philo *philo, char *message);
-void			call_death(t_main *main);
+int				is_philo_dead(t_philo *philo);
 
 #endif

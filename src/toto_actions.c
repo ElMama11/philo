@@ -20,45 +20,53 @@ static void	lock_forks(t_philo *philo)
 	write_something(philo, FORK);
 }
 
-static void	unlock_forks(t_philo *philo)
+void	unlock_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->main->forks[(philo->id - philo->id % 2) % philo->main->args->nb_philo]);
 	pthread_mutex_unlock(philo->main->forks [(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]);
 }
 
-static void	take_forks(t_philo *philo)
+int	is_simulation_ended(t_philo *philo)
 {
-	// if is_simulation_ended()
-		// return 1
-	pthread_mutex_lock(philo->main->take_forks);
-	// if is_simulation_ended()
-		// pthread_mutex_unlock(philo->main->take_forks);
-		// return 1
-	lock_forks(philo);
-	pthread_mutex_unlock(philo->main->take_forks);
-	// return 0
+	if (philo->main->is_dead == 1)
+		return (1);
+	else
+		return (0);
 }
 
-void	i_must_eat(t_philo *philo)
+static int	take_forks(t_philo *philo)
+{
+	if (is_simulation_ended(philo))
+		return (1);
+	pthread_mutex_lock(philo->main->take_forks);
+	if (is_simulation_ended(philo))
+	{
+		pthread_mutex_unlock(philo->main->take_forks);
+		return (1);
+	}
+	lock_forks(philo);
+	pthread_mutex_unlock(philo->main->take_forks);
+	return (0);
+}
+
+void	process_lastmeal_time(t_philo *philo)
+{
+	pthread_mutex_lock(philo->main->last_meal_mutex);
+	philo->last_meal_time = get_timestamp(philo->main) + philo->main->args->time_to_eat;
+	pthread_mutex_unlock(philo->main->last_meal_mutex);
+}
+
+int	i_must_eat(t_philo *philo)
 {
 	if (philo->meal_counter == philo->main->args->nb_meal_required)
-		return ;
-	// if take_forks(philo);
-		// return 1
-
+		return (1);
+	if (take_forks(philo))
+		return (1);
 	take_forks(philo);
-	philo->last_meal_time = get_timestamp(philo->main) + philo->main->args->time_to_eat;	
+	process_lastmeal_time(philo);
 	write_something(philo, EAT);
-	ms_sleep(philo->main->args->time_to_eat);
-	// |                               |
-	// V A mettre dans le sleep custom V
-	// if is_simulation_ended()
-		// unlock_forks(philo);
-		// return 1
-	// |                               |
-	// A A mettre dans le sleep custom A
-
+	ms_sleep_with_simulation_ended_check(philo->main->args->time_to_eat, philo);
 	philo->meal_counter++;
 	unlock_forks(philo);
-	return ;
+	return (0);
 }
