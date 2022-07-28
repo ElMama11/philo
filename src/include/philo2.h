@@ -32,7 +32,6 @@ typedef struct s_philo {
 
 typedef struct s_main {
 	pthread_t		*threads;
-	pthread_t		*death;
 	pthread_mutex_t	**forks;
 	pthread_mutex_t *take_forks;
 	pthread_mutex_t	*is_dead_mutex;

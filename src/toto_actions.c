@@ -4,7 +4,7 @@
 void	i_must_sleep(t_philo *philo)
 {
     write_something(philo, SLEEP);
-    ms_sleep(philo->main->args->time_to_sleep);
+    ms_sleep_with_simulation_ended_check(philo->main->args->time_to_sleep, philo);
 }
 
 void	i_must_think(t_philo *philo)
@@ -38,7 +38,7 @@ static int	take_forks(t_philo *philo)
 {
 	if (is_simulation_ended(philo))
 		return (1);
-	pthread_mutex_lock(philo->main->take_forks);
+	pthread_mutex_lock(philo->main->take_forks); //is_dead = 1??
 	if (is_simulation_ended(philo))
 	{
 		pthread_mutex_unlock(philo->main->take_forks);
@@ -62,7 +62,6 @@ int	i_must_eat(t_philo *philo)
 		return (1);
 	if (take_forks(philo))
 		return (1);
-	take_forks(philo);
 	process_lastmeal_time(philo);
 	write_something(philo, EAT);
 	ms_sleep_with_simulation_ended_check(philo->main->args->time_to_eat, philo);
