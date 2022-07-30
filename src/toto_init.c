@@ -41,7 +41,9 @@ static int create_philo_structs(t_main *main)
 		memset(main->philos[i], 0, sizeof(t_philo));
 		main->philos[i]->id = i + 1;
 		main->philos[i]->main = main;
-
+		if (main->args->nb_meal_required == -1)
+			main->philos[i]->meal_counter = -1;
+		
 		i++;
 	}
 	return (0);

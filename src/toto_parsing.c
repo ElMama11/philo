@@ -84,7 +84,7 @@ int	parsing(t_main *main, int ac, char **av)
 		if (ac == 6)
 			main->args->nb_meal_required = atoi(av[5]);
 		else
-			main->args->nb_meal_required = 1;
+			main->args->nb_meal_required = -1;
 		if (is_input_errors(main->args, av))
 			return 1;
 		return (0);

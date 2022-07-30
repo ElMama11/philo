@@ -6,7 +6,7 @@
 #    By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 14:44:07 by mverger           #+#    #+#              #
-#    Updated: 2022/07/30 15:57:09 by mverger          ###   ########.fr        #
+#    Updated: 2022/07/30 19:44:29 by mverger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ INCLUDE_PATH=include
 #SRC =   	main.c func_libft.c parsing.c init_philo.c init_struct.c init_forks.c philo_utils.c
 
 DEP = Makefile src/$(INCLUDE_PATH)/philo2.h
-SRC =   	toto.c toto_init.c toto_parsing.c toto_time.c toto_actions.c
+SRC =   	toto.c toto_init.c toto_parsing.c toto_time.c toto_actions.c toto_actions_utils.c toto_death.c toto_memory.c
 
 HEAD = -I ./src/$(INCLUDE_PATH)/
 OBJ = $(patsubst %.c,$(PATHOBJ)/%.o,$(SRC))
