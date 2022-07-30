@@ -41,11 +41,11 @@ static int create_philo_structs(t_main *main)
 		memset(main->philos[i], 0, sizeof(t_philo));
 		main->philos[i]->id = i + 1;
 		main->philos[i]->main = main;
+
 		i++;
 	}
 	return (0);
 }
-
 
 static int	create_philo_threads(t_main *main)
 {
@@ -85,7 +85,7 @@ void init(t_main *main)
 {
 	create_forks(main);
 	create_philo_structs(main);
+	init_mutex(main);
 	create_philo_threads(main);
 	//create_death_thread(main);
-	init_mutex(main);
 }

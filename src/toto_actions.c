@@ -36,16 +36,18 @@ int	is_simulation_ended(t_philo *philo)
 
 static int	take_forks(t_philo *philo)
 {
+	printf("take forks 1 = %d, id = %d \n", get_timestamp(philo->main), philo->id);
 	if (is_simulation_ended(philo))
 		return (1);
-	pthread_mutex_lock(philo->main->take_forks); //is_dead = 1??
+	printf("take forks 2  = %d, id = %d \n", get_timestamp(philo->main), philo->id);
+	//pthread_mutex_lock(philo->main->take_forks); //is_dead = 1??
 	if (is_simulation_ended(philo))
 	{
-		pthread_mutex_unlock(philo->main->take_forks);
+		//pthread_mutex_unlock(philo->main->take_forks);
 		return (1);
 	}
 	lock_forks(philo);
-	pthread_mutex_unlock(philo->main->take_forks);
+	//pthread_mutex_unlock(philo->main->take_forks);
 	return (0);
 }
 

@@ -78,7 +78,6 @@ void	wait_until_end(t_main *main)
 	return (join_all_threads(main));
 }
 
-
 void	free_memory(t_main *main)
 {
 	free(main);
@@ -90,7 +89,7 @@ void	*philosophers_routine(void *philo_void)
 
 	philo = (t_philo *)philo_void;
 	//printf("id = %d\n", philo->id);
-	while (philo->meal_counter < philo->main->args->nb_meal_required)
+	while (philo->meal_counter < philo->main->args->nb_meal_required && philo->main->is_dead == 0)
 	{
 		if (i_must_eat(philo))
 			return (NULL);
@@ -113,5 +112,4 @@ int	main(int ac, char **av)
 	free_memory(main);
 	return (0);
 }
-//lock qd ecrire et lecture last_meal
-//check ms sleep dans i must sleep
+//lancer les philos en meme temps
