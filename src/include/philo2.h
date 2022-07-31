@@ -8,11 +8,11 @@
 # include <stdio.h>
 # include <sys/time.h>
 
-# define FORK "%d %d has taken a fork\n"
-# define SLEEP "%d %d is sleeping\n"
-# define THINK "%d %d is thinking\n"
-# define DEAD "%d %d died\n"
-# define EAT "%d %d is eating\n"
+# define FORK "Thread %d %d has taken a fork\n"
+# define SLEEP "Thread %d %d is sleeping\n"
+# define THINK "Thread %d %d is thinking\n"
+# define DEAD "Thread %d %d died\n"
+# define EAT "Thread %d %d is eating\n"
 
 /* STRUCTS */
 typedef struct s_args {
@@ -36,9 +36,11 @@ typedef struct s_main {
 	pthread_mutex_t *take_forks;
 	pthread_mutex_t	*is_dead_mutex;
 	pthread_mutex_t	*last_meal_mutex;
+	pthread_mutex_t	*message;
 	t_philo			**philos;
 	int				start_time;
 	int				is_dead;
+	int				signal;
 	t_args			*args;
 }					t_main;
 
@@ -68,7 +70,7 @@ int				ms_sleep_with_simulation_ended_check(int time, t_philo *philo);
 
 /* toto_main.c */
 void			*philosophers_routine(void *philo_void);
-void			write_something(t_philo *philo, char *message);
+void			write_something(t_philo *philo, int message);
 int				is_philo_dead(t_philo *philo);
 
 /* toto_memory.c */
@@ -79,5 +81,5 @@ void			check_lock_isdead_variable(t_philo *philo);
 int				is_philo_dead(t_philo *philo);
 void			join_all_threads(t_main *main);
 void			wait_until_end(t_main *main);
-
+int				is_eatings_completed(t_main *main);
 #endif

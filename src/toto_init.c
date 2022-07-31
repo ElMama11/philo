@@ -8,6 +8,8 @@ static void	init_mutex(t_main *main)
 	pthread_mutex_init(main->is_dead_mutex, NULL);
 	main->last_meal_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	pthread_mutex_init(main->last_meal_mutex, NULL);
+	main->message = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	pthread_mutex_init(main->message, NULL);
 }
 
 static int	create_forks(t_main *main)
@@ -67,6 +69,7 @@ static int	create_philo_threads(t_main *main)
 		i++;
 	}
 	main->start_time = ft_get_time();
+	main->signal = 1;
 	return (0);
 }
 
