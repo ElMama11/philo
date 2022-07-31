@@ -7,6 +7,16 @@ void	check_lock_isdead_variable(t_philo *philo)
 	pthread_mutex_unlock(philo->main->is_dead_mutex);
 }
 
+int is_philo_satisfied(t_philo *philo)
+{
+	if (philo->main->args->nb_meal_required == -1)
+		return (0);
+	if (philo->meal_counter == philo->main->args->nb_meal_required) {
+		return (1);
+	}
+	return (0);
+}
+
 int	is_philo_dead(t_philo *philo)
 {
 	int	i;
@@ -15,7 +25,7 @@ int	is_philo_dead(t_philo *philo)
 	while (i < philo->main->args->nb_philo)
 	{
 		pthread_mutex_lock(philo->main->last_meal_mutex); //un lock par philo
-		if ((get_timestamp(philo->main) - philo->last_meal_time) > philo->main->args->time_to_die)
+		if (! is_philo_satisfied(philo) && (get_timestamp(philo->main) - philo->last_meal_time) > philo->main->args->time_to_die)
 		{
 			pthread_mutex_unlock(philo->main->last_meal_mutex);
 			check_lock_isdead_variable(philo);
@@ -72,7 +82,7 @@ void	wait_until_end(t_main *main)
 				write_something(main->philos[i], 5);
 				return (join_all_threads(main));
 			}
-			usleep(1);
+			ms_sleep(1);
 			i++;
 		}
 	}

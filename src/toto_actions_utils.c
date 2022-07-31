@@ -4,7 +4,7 @@ void	lock_forks(t_philo *philo)
 {
 	pthread_mutex_lock(philo->main->forks[(philo->id - philo->id % 2) % philo->main->args->nb_philo]);
 	write_something(philo, 1);
-	pthread_mutex_lock(philo->main->forks [(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]); //deadlock pour 1 philo
+	pthread_mutex_lock(philo->main->forks[(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]); //deadlock pour 1 philo
 	write_something(philo, 1);
 }
 

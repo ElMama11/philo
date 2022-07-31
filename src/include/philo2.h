@@ -8,11 +8,11 @@
 # include <stdio.h>
 # include <sys/time.h>
 
-# define FORK "Thread %d %d has taken a fork\n"
-# define SLEEP "Thread %d %d is sleeping\n"
-# define THINK "Thread %d %d is thinking\n"
-# define DEAD "Thread %d %d died\n"
-# define EAT "Thread %d %d is eating\n"
+# define FORK "Thread %d %d has taken a fork. Counter : %d \n"
+# define SLEEP "Thread %d %d is sleeping. Counter : %d\n"
+# define THINK "Thread %d %d is thinking. Counter : %d\n"
+# define DEAD "Thread %d %d died. Counter : %d\n"
+# define EAT "Thread %d %d is eating. Counter : %d\n"
 
 /* STRUCTS */
 typedef struct s_args {
@@ -55,6 +55,7 @@ void			lock_forks(t_philo *philo);
 void			unlock_forks(t_philo *philo);
 int				take_forks(t_philo *philo);
 void			process_lastmeal_time(t_philo *philo);
+int 			is_philo_satisfied(t_philo *philo);
 
 /* toto_init.c */
 void 			init(t_main *main);

@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 14:44:07 by mverger           #+#    #+#              #
-#    Updated: 2022/07/30 19:44:29 by mverger          ###   ########.fr        #
+#    Updated: 2022/08/01 01:22:54 by mverger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-GCCF = gcc -g3 #-Wall -Werror -Wextra
+GCCF = gcc -g3 -fsanitize=thread#-Wall -Werror -Wextra
 GREEN       = \033[32m
 RED         = \033[31m
 DEFAULT     = \033[37m
