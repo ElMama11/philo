@@ -64,7 +64,6 @@ static int create_philo_threads(t_main *main)
 	pthread_mutex_lock(main->signal_mutex);
 	while (i < main->args->nb_philo)
 	{
-		main->threads = (pthread_t *)malloc(sizeof(pthread_t) * main->args->nb_philo);
 		ret = pthread_create(&(main->threads[i]), NULL, (void *)philosophers_routine, (void *)(main->philos[i]));
 		if (ret != 0)
 		{

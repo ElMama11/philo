@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <sys/time.h>
 
+#define MAX_THREADS_ALLOWED 256
+
 #define FORK "Thread %d %d has taken a fork. Counter : %d \n"
 #define SLEEP "Thread %d %d is sleeping. Counter : %d\n"
 #define THINK "Thread %d %d is thinking. Counter : %d\n"
@@ -34,7 +36,7 @@ typedef struct s_philo
 
 typedef struct s_main
 {
-	pthread_t *threads;
+	pthread_t threads[MAX_THREADS_ALLOWED];
 	pthread_mutex_t **forks;
 	pthread_mutex_t *take_forks;
 	pthread_mutex_t *is_dead_mutex;
