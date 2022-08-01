@@ -15,7 +15,7 @@ void ms_sleep(int time)
     tv_current = ft_get_time();
     while ((tv_current - tv_start) < time)
     {
-        usleep(1);
+        usleep(50);
         tv_current = ft_get_time();
     }
 }
@@ -38,7 +38,5 @@ int ms_sleep_with_simulation_ended_check(int time, t_philo *philo)
 
 int get_timestamp(t_main *main)
 {
-    struct timeval end;
-
     return (ft_get_time() - main->start_time);
 }

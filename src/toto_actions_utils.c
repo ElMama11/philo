@@ -20,14 +20,9 @@ int take_forks(t_philo *philo)
 		return (1);
 	if (is_simulation_ended(philo))
 		return (1);
-	// pthread_mutex_lock(philo->main->take_forks);
 	if (is_simulation_ended(philo))
-	{
-		// pthread_mutex_unlock(philo->main->take_forks);
 		return (1);
-	}
 	lock_forks(philo);
-	// pthread_mutex_unlock(philo->main->take_forks);
 	return (0);
 }
 

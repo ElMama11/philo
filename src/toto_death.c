@@ -28,7 +28,7 @@ int is_philo_dead(t_philo *philo)
 	i = 0;
 	while (i < philo->main->args->nb_philo)
 	{
-		pthread_mutex_lock(philo->main->last_meal_mutex); // un lock par philo
+		pthread_mutex_lock(philo->main->last_meal_mutex);
 		if (!is_philo_satisfied(philo) && (get_timestamp(philo->main) - philo->last_meal_time) > philo->main->args->time_to_die)
 		{
 			pthread_mutex_unlock(philo->main->last_meal_mutex);
@@ -76,11 +76,9 @@ void wait_until_end(t_main *main)
 {
 	int i;
 
-	i = 0;
-
 	while (1)
 	{
-		int i = 0;
+		i = 0;
 		while (i < main->args->nb_philo)
 		{
 			if (is_eatings_completed(main))

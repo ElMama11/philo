@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+         #
+#    By: jjaouen <jjaouen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 14:44:07 by mverger           #+#    #+#              #
-#    Updated: 2022/08/01 17:01:52 by mverger          ###   ########.fr        #
+#    Updated: 2022/08/01 21:44:57 by jjaouen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-GCCF = gcc -g3 -fsanitize=thread#-Wall -Werror -Wextra
+GCCF = gcc -Wall -Werror -Wextra #-O3 #-fsanitize=thread
 GREEN       = \033[32m
 RED         = \033[31m
 DEFAULT     = \033[37m
@@ -37,8 +37,8 @@ all: $(NAME)
 
 $(PATHOBJ):
 	@mkdir -p obj
-	
-$(NAME): $(DEP) $(addprefix $(PATHSRC)/,$(SRC)) $(PATHOBJ) $(OBJ) 
+
+$(NAME): $(DEP) $(addprefix $(PATHSRC)/,$(SRC)) $(PATHOBJ) $(OBJ)
 	@$(ECHO) "\r$(GREEN) The .o from $(NAME) are compiled.$(DEFAULT)"
 	@$(GCCF) $(OBJ) -o $(NAME) -lpthread
 	@$(ECHO) "$(GREEN)$(NAME)$(DEFAULT) created."

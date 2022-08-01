@@ -1,10 +1,10 @@
 #include "philo2.h"
 
-static int	ft_strncmp(const char *s1, const char *s2, size_t n)
+static int ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t			i;
-	unsigned char	*str1;
-	unsigned char	*str2;
+	size_t i;
+	unsigned char *str1;
+	unsigned char *str2;
 
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
@@ -18,7 +18,7 @@ static int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-static int	check_str_in_args(t_args *args, char **av)
+static int check_str_in_args(t_args *args, char **av)
 {
 	if (args->time_to_die == 0)
 	{
@@ -50,12 +50,11 @@ static int	check_str_in_args(t_args *args, char **av)
 static int is_input_errors(t_args *args, char **av)
 {
 	if (check_str_in_args(args, av))
-		return(1);
+		return (1);
 	if (args->nb_philo < 1)
 	{
 		printf("Number of philo required must be superior to 0\n");
 		return (1);
-	
 	}
 	if (args->time_to_die < 0 || args->time_to_eat < 0 || args->time_to_sleep < 0)
 	{
@@ -70,9 +69,9 @@ static int is_input_errors(t_args *args, char **av)
 	return (0);
 }
 
-int	parsing(t_main *main, int ac, char **av)
+int parsing(t_main *main, int ac, char **av)
 {
-	main->args = (t_args*)malloc(sizeof(t_args));
+	main->args = (t_args *)malloc(sizeof(t_args));
 	memset(main->args, 0, sizeof(t_args));
 
 	if (ac == 5 || ac == 6)

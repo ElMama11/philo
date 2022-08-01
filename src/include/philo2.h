@@ -10,11 +10,11 @@
 
 #define MAX_THREADS_ALLOWED 256
 
-#define FORK "Thread %d %d has taken a fork. Counter : %d \n"
-#define SLEEP "Thread %d %d is sleeping. Counter : %d\n"
-#define THINK "Thread %d %d is thinking. Counter : %d\n"
-#define DEAD "Thread %d %d died. Counter : %d\n"
-#define EAT "Thread %d %d is eating. Counter : %d\n"
+#define FORK "%d %d has taken a fork.\n"
+#define SLEEP "%d %d is sleeping.\n"
+#define THINK "%d %d is thinking.\n"
+#define DEAD "%d %d died.\n"
+#define EAT "%d %d is eating.\n"
 
 /* STRUCTS */
 typedef struct s_args
@@ -38,10 +38,9 @@ typedef struct s_main
 {
 	pthread_t threads[MAX_THREADS_ALLOWED];
 	pthread_mutex_t **forks;
-	pthread_mutex_t *take_forks;
 	pthread_mutex_t *is_dead_mutex;
 	pthread_mutex_t *last_meal_mutex;
-	pthread_mutex_t *message;
+	pthread_mutex_t *message_mutex;
 	pthread_mutex_t *signal_mutex;
 	pthread_mutex_t *meal_counter_mutex;
 	t_philo **philos;

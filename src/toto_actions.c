@@ -17,8 +17,6 @@ void i_must_think(t_philo *philo)
 
 int i_must_eat(t_philo *philo)
 {
-	// if (philo->meal_counter == philo->main->args->nb_meal_required) //les philos doivent-ils continuer a manger apres avoir atteint meal_required?
-	// return (1);
 	if (take_forks(philo))
 		return (1);
 	process_lastmeal_time(philo);
