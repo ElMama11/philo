@@ -45,9 +45,15 @@ int	routine_without_optional_arg(t_philo *philo)
 	return (0);
 }
 
-void wait_for_start_signal(t_main *main) {
+void wait_for_start_signal(t_main *main)
+{
+	//pthread_mutex_lock(main->signal_mutex);
 	while (main->signal != 1)
-		usleep(1) ;
+	{
+		//pthread_mutex_unlock(main->signal_mutex);
+		usleep(1);
+	}
+	//pthread_mutex_unlock(main->signal_mutex);
 }
 
 void	*philosophers_routine(void *philo_void)
@@ -77,7 +83,7 @@ int	main(int ac, char **av)
 		return (1);
 	init(&main);
 	wait_until_end(&main);
-	free_memory(&main);
+	//free_memory(&main);
 	return (0);
 }
 //lancer les philos en meme temps
