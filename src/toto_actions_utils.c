@@ -10,9 +10,7 @@ void lock_forks(t_philo *philo)
 
 void unlock_forks(t_philo *philo)
 {
-	printf("Thread %d: Unlock forks %d\n", philo->id, (philo->id - philo->id % 2) % philo->main->args->nb_philo);
 	pthread_mutex_unlock(philo->main->forks[(philo->id - philo->id % 2) % philo->main->args->nb_philo]);
-	printf("Thread %d: Unlock forks %d\n", philo->id, (philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo);
 	pthread_mutex_unlock(philo->main->forks[(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]);
 }
 

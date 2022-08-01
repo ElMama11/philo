@@ -46,7 +46,7 @@ void join_all_threads(t_main *main)
 	int i = 0;
 	while (i < main->args->nb_philo)
 	{
-		printf("Index %d Return %d\n", i, pthread_join(main->threads[i], NULL));
+		pthread_join(main->threads[i], NULL);
 		i++;
 	}
 	return;
@@ -84,18 +84,10 @@ void wait_until_end(t_main *main)
 		while (i < main->args->nb_philo)
 		{
 			if (is_eatings_completed(main))
-			{
-				pthread_mutex_lock(main->message);
-				printf("I'm joining bc one philo is dead.\n");
-				pthread_mutex_unlock(main->message);
 				return (join_all_threads(main));
-			}
 			else if (is_philo_dead(main->philos[i]))
 			{
 				write_something(main->philos[i], 5);
-				pthread_mutex_lock(main->message);
-				printf("I'm joining bc one philo is dead.\n");
-				pthread_mutex_unlock(main->message);
 				return (join_all_threads(main));
 			}
 			ms_sleep(1);

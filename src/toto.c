@@ -82,10 +82,6 @@ int main(int ac, char **av)
 	init(&main);
 	wait_until_end(&main);
 	// sleep(1);
-	pthread_mutex_lock((&main)->message);
-	printf("I'm done joigning.\n");
-	pthread_mutex_unlock((&main)->message);
-
 	// free_memory(&main);
 	return (0);
 }
