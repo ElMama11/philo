@@ -24,7 +24,7 @@ static int check_str_in_args(t_args *args, char **av)
 	{
 		if (ft_strncmp("0", av[2], 2) != 0)
 		{
-			printf("time to die must be a number");
+			printf("ERROR: time to die must be a number\n");
 			return (1);
 		}
 	}
@@ -32,7 +32,7 @@ static int check_str_in_args(t_args *args, char **av)
 	{
 		if (ft_strncmp("0", av[3], 2) != 0)
 		{
-			printf("time to eat must be a number");
+			printf("ERROR: time to eat must be a number\n");
 			return (1);
 		}
 	}
@@ -40,9 +40,19 @@ static int check_str_in_args(t_args *args, char **av)
 	{
 		if (ft_strncmp("0", av[4], 2) != 0)
 		{
-			printf("time to sleep must be a number");
+			printf("ERROR: time to sleep must be a number\n");
 			return (1);
 		}
+	}
+	return (0);
+}
+
+int check_philo_superior_maxthreads(t_args *args)
+{
+	if (args->nb_philo > MAX_THREADS_ALLOWED)
+	{
+		printf("ERROR: Number of philo can't exceed %d.\n", MAX_THREADS_ALLOWED);
+		return (1);
 	}
 	return (0);
 }
@@ -51,19 +61,21 @@ static int is_input_errors(t_args *args, char **av)
 {
 	if (check_str_in_args(args, av))
 		return (1);
+	if (check_philo_superior_maxthreads(args))
+		return (1);
 	if (args->nb_philo < 1)
 	{
-		printf("Number of philo required must be superior to 0\n");
+		printf("ERROR: Number of philo required must be superior to 0\n");
 		return (1);
 	}
 	if (args->time_to_die < 0 || args->time_to_eat < 0 || args->time_to_sleep < 0)
 	{
-		printf("Timestamps must be positive\n");
+		printf("ERROR: Timestamps must be positive\n");
 		return (1);
 	}
 	if (av[5] && args->nb_meal_required < 1)
-	{
-		printf("Number of meal required must be superior to 0\n");
+	{ 
+		printf("ERROR: Number of meal required must be superior to 0\n");
 		return (1);
 	}
 	return (0);
@@ -88,6 +100,6 @@ int parsing(t_main *main, int ac, char **av)
 			return 1;
 		return (0);
 	}
-	printf("Usage: number_of_philosophers time_to_die time_to_eat time_to_sleep [nb_meal_required]");
+	printf("Usage: number_of_philosophers time_to_die time_to_eat time_to_sleep [nb_meal_required]\n");
 	return (1);
 }

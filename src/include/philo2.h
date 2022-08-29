@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-#define MAX_THREADS_ALLOWED 256
+#define MAX_THREADS_ALLOWED 1024
 
 #define FORK "%d %d has taken a fork.\n"
 #define SLEEP "%d %d is sleeping.\n"

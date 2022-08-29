@@ -41,6 +41,6 @@ int is_simulation_ended(t_philo *philo)
 void process_lastmeal_time(t_philo *philo)
 {
 	pthread_mutex_lock(philo->main->last_meal_mutex);
-	philo->last_meal_time = get_timestamp(philo->main) + philo->main->args->time_to_eat;
+	philo->last_meal_time = get_timestamp(philo->main);
 	pthread_mutex_unlock(philo->main->last_meal_mutex);
 }
