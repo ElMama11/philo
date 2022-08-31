@@ -1,10 +1,22 @@
-#include "philo2.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_parsing.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/31 18:23:35 by mverger           #+#    #+#             */
+/*   Updated: 2022/08/31 18:32:32 by mverger          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static int ft_strncmp(const char *s1, const char *s2, size_t n)
+#include "philo.h"
+
+static int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t i;
-	unsigned char *str1;
-	unsigned char *str2;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;

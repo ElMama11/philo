@@ -1,5 +1,5 @@
-#ifndef PHILO2_H
-#define PHILO2_H
+#ifndef PHILO_H
+#define PHILO_H
 
 #include <pthread.h>
 #include <stdlib.h>
@@ -49,12 +49,12 @@ typedef struct s_main
 	t_args *args;
 } t_main;
 
-/* toto_actions.c */
+/* philo_actions.c */
 void i_must_sleep(t_philo *philo);
 void i_must_think(t_philo *philo);
 int i_must_eat(t_philo *philo);
 
-/* toto_actions_utils.c */
+/* philo_actions_utils.c */
 int is_simulation_ended(t_philo *philo);
 void lock_forks(t_philo *philo);
 void unlock_forks(t_philo *philo);
@@ -62,27 +62,27 @@ int take_forks(t_philo *philo);
 void process_lastmeal_time(t_philo *philo);
 int is_philo_satisfied(t_philo *philo);
 
-/* toto_init.c */
+/* philo_init.c */
 void init(t_main *main);
 
-/* toto_parsing.c */
+/* philo_parsing.c */
 int parsing(t_main *main, int ac, char **av);
 
-/* toto_time.c */
+/* philo_time.c */
 unsigned long ft_get_time(void);
 void ms_sleep(int time);
 int get_timestamp(t_main *main);
 int ms_sleep_with_simulation_ended_check(int time, t_philo *philo);
 
-/* toto_main.c */
+/* philo_main.c */
 void *philosophers_routine(void *philo_void);
 void write_something(t_philo *philo, int message);
 int is_philo_dead(t_philo *philo);
 
-/* toto_memory.c */
+/* philo_memory.c */
 void free_memory(t_main *main);
 
-/* toto_death.c */
+/* philo_death.c */
 void check_lock_isdead_variable(t_philo *philo);
 int is_philo_dead(t_philo *philo);
 void join_all_threads(t_main *main);

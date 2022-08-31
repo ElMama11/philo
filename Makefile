@@ -6,23 +6,21 @@
 #    By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 14:44:07 by mverger           #+#    #+#              #
-#    Updated: 2022/08/30 00:59:26 by mverger          ###   ########.fr        #
+#    Updated: 2022/08/31 18:22:04 by mverger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-GCCF = gcc -Wall -Werror -Wextra -O3#-fsanitize=thread
+GCCF = gcc -Wall -Werror -Wextra
 GREEN       = \033[32m
 RED         = \033[31m
 DEFAULT     = \033[37m
 PATHOBJ = obj/
 PATHSRC = src/
 INCLUDE_PATH=include
-#DEP = Makefile src/$(INCLUDE_PATH)/philo.h
-#SRC =   	main.c func_libft.c parsing.c init_philo.c init_struct.c init_forks.c philo_utils.c
 
-DEP = Makefile src/$(INCLUDE_PATH)/philo2.h
-SRC =   	toto.c toto_init.c toto_parsing.c toto_time.c toto_actions.c toto_actions_utils.c toto_death.c toto_memory.c
+DEP = Makefile src/$(INCLUDE_PATH)/philo.h
+SRC =   	main.c philo_init.c philo_parsing.c philo_time.c philo_actions.c philo_actions_utils.c philo_death.c philo_memory.c
 
 HEAD = -I ./src/$(INCLUDE_PATH)/
 OBJ = $(patsubst %.c,$(PATHOBJ)/%.o,$(SRC))
