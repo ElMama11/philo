@@ -3,30 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+        */
+/*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:23:29 by mverger           #+#    #+#             */
-/*   Updated: 2022/08/31 18:23:31 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/19 18:19:53 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void lock_forks(t_philo *philo)
+void	lock_forks(t_philo *philo)
 {
-	pthread_mutex_lock(philo->main->forks[(philo->id - philo->id % 2) % philo->main->args->nb_philo]);
+	pthread_mutex_lock(philo->main->forks[(philo->id - philo->id % 2)
+		% philo->main->args->nb_philo]);
 	write_something(philo, 1);
-	pthread_mutex_lock(philo->main->forks[(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]); // deadlock pour 1 philo
+	pthread_mutex_lock(philo->main->forks[(philo->id - 1 + (philo->id % 2))
+		% philo->main->args->nb_philo]);
 	write_something(philo, 1);
 }
 
-void unlock_forks(t_philo *philo)
+void	unlock_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(philo->main->forks[(philo->id - philo->id % 2) % philo->main->args->nb_philo]);
-	pthread_mutex_unlock(philo->main->forks[(philo->id - 1 + (philo->id % 2)) % philo->main->args->nb_philo]);
+	pthread_mutex_unlock(philo->main->forks[(philo->id - philo->id % 2)
+		% philo->main->args->nb_philo]);
+	pthread_mutex_unlock(philo->main->forks[(philo->id - 1 + (philo->id % 2))
+		% philo->main->args->nb_philo]);
 }
 
-int take_forks(t_philo *philo)
+int	take_forks(t_philo *philo)
 {
 	if (philo->main->args->nb_philo == 1)
 		return (1);
@@ -38,7 +42,7 @@ int take_forks(t_philo *philo)
 	return (0);
 }
 
-int is_simulation_ended(t_philo *philo)
+int	is_simulation_ended(t_philo *philo)
 {
 	pthread_mutex_lock(philo->main->is_dead_mutex);
 	if (philo->main->is_dead == 1)
@@ -50,7 +54,7 @@ int is_simulation_ended(t_philo *philo)
 	return (0);
 }
 
-void process_lastmeal_time(t_philo *philo)
+void	process_lastmeal_time(t_philo *philo)
 {
 	pthread_mutex_lock(philo->main->last_meal_mutex);
 	philo->last_meal_time = get_timestamp(philo->main);

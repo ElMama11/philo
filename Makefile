@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mverger <mverger@42lyon.fr>                +#+  +:+       +#+         #
+#    By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/20 14:44:07 by mverger           #+#    #+#              #
-#    Updated: 2022/08/31 18:22:04 by mverger          ###   ########.fr        #
+#    Updated: 2022/10/19 18:39:19 by mverger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-GCCF = gcc -Wall -Werror -Wextra
+GCCF = gcc -Wall -Werror -Wextra 
 GREEN       = \033[32m
 RED         = \033[31m
 DEFAULT     = \033[37m
