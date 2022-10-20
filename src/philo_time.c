@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:23:43 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/19 16:07:49 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:09:56 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,32 @@ int	ms_sleep_with_simulation_ended_check(int time, t_philo *philo)
 int	get_timestamp(t_main *main)
 {
 	return (ft_get_time() - main->start_time);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	nb;
+	int	neg;
+
+	neg = 0;
+	i = 0;
+	nb = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
+	{
+		neg++;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nb = nb * 10 + (str[i] - '0');
+		i++;
+	}
+	if (neg == 1)
+		nb *= -1;
+	return (nb);
 }

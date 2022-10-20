@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:06:51 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/19 18:18:30 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:09:51 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ unsigned long	ft_get_time(void);
 void			ms_sleep(int time);
 int				get_timestamp(t_main *main);
 int				ms_sleep_with_simulation_ended_check(int time, t_philo *philo);
+int				ft_atoi(const char *str);
 
 /* philo_main.c */
 void			*philosophers_routine(void *philo_void);

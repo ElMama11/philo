@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:23:35 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/19 16:12:03 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:15:30 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ int	parsing(t_main *main, int ac, char **av)
 	memset(main->args, 0, sizeof(t_args));
 	if (ac == 5 || ac == 6)
 	{
-		main->args->nb_philo = atoi(av[1]);
-		main->args->time_to_die = atoi(av[2]);
-		main->args->time_to_eat = atoi(av[3]);
-		main->args->time_to_sleep = atoi(av[4]);
+		main->args->nb_philo = ft_atoi(av[1]);
+		main->args->time_to_die = ft_atoi(av[2]);
+		main->args->time_to_eat = ft_atoi(av[3]);
+		main->args->time_to_sleep = ft_atoi(av[4]);
 		if (ac == 6)
-			main->args->nb_meal_required = atoi(av[5]);
+			main->args->nb_meal_required = ft_atoi(av[5]);
 		else
 			main->args->nb_meal_required = -1;
 		if (is_input_errors(main->args, av))

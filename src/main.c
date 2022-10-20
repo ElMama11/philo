@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:23:04 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/19 15:17:02 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:17:22 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	main(int ac, char **av)
 
 	memset(&main, 0, sizeof(t_main));
 	if (parsing(&main, ac, av))
+	{
+		free(main.args);	
 		return (1);
+	}
 	init(&main);
 	wait_until_end(&main);
 	free_memory(&main);

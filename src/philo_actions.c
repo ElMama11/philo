@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:23:22 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/19 18:25:34 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:18:39 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,20 @@ void	write_something(t_philo *philo, int message)
 	{
 		pthread_mutex_lock(philo->main->message_mutex);
 		if (message == 1)
-			printf(FORK, philo->id, get_timestamp(philo->main));
+			printf(FORK, get_timestamp(philo->main), philo->id);
 		else if (message == 2)
-			printf(EAT, philo->id, get_timestamp(philo->main));
+			printf(EAT, get_timestamp(philo->main), philo->id);
 		else if (message == 3)
-			printf(SLEEP, philo->id, get_timestamp(philo->main));
+			printf(SLEEP, get_timestamp(philo->main), philo->id);
 		else if (message == 4)
-			printf(THINK, philo->id, get_timestamp(philo->main));
+			printf(THINK, get_timestamp(philo->main), philo->id);
 		pthread_mutex_unlock(philo->main->message_mutex);
 	}
 	if (message == 5)
 	{
 		pthread_mutex_lock(philo->main->message_mutex);
 		pthread_mutex_lock(philo->main->meal_counter_mutex);
-		printf(DEAD, philo->id, get_timestamp(philo->main));
+		printf(DEAD, get_timestamp(philo->main), philo->id);
 		pthread_mutex_unlock(philo->main->meal_counter_mutex);
 		pthread_mutex_unlock(philo->main->message_mutex);
 	}
