@@ -6,25 +6,36 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:23:50 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/19 16:18:36 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/25 15:18:03 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init_mutex(t_main *main)
+static int	init_mutex(t_main *main)
 {
 	main->is_dead_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (main->is_dead_mutex == NULL)
+		return (1);
 	pthread_mutex_init(main->is_dead_mutex, NULL);
 	main->last_meal_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (main->last_meal_mutex == NULL)
+		return (1);
 	pthread_mutex_init(main->last_meal_mutex, NULL);
 	main->message_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (main->message_mutex == NULL)
+		return (1);
 	pthread_mutex_init(main->message_mutex, NULL);
 	main->signal_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (main->signal_mutex == NULL)
+		return (1);
 	pthread_mutex_init(main->signal_mutex, NULL);
 	main->meal_counter_mutex
 		= (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (main->meal_counter_mutex == NULL)
+		return (1);
 	pthread_mutex_init(main->meal_counter_mutex, NULL);
+	return (0);
 }
 
 static int	create_forks(t_main *main)
@@ -40,7 +51,8 @@ static int	create_forks(t_main *main)
 	{
 		main->forks[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 				* main->args->nb_philo);
-		if (pthread_mutex_init(main->forks[i], NULL) != 0)
+		if (pthread_mutex_init(main->forks[i], NULL) != 0
+			|| main->forks[i] == NULL)
 			return (1);
 		i++;
 	}
@@ -53,9 +65,13 @@ static int	create_philo_structs(t_main *main)
 
 	i = 0;
 	main->philos = (t_philo **)malloc(sizeof(t_philo *) * main->args->nb_philo);
+	if (main->philos == NULL)
+		return (1);
 	while (i < main->args->nb_philo)
 	{
 		main->philos[i] = (t_philo *)malloc(sizeof(t_philo));
+		if (main->philos[i] == NULL)
+			return (1);
 		memset(main->philos[i], 0, sizeof(t_philo));
 		main->philos[i]->id = i + 1;
 		main->philos[i]->main = main;
@@ -89,10 +105,15 @@ static int	create_philo_threads(t_main *main)
 	return (0);
 }
 
-void	init(t_main *main)
+int	init(t_main *main)
 {
-	create_forks(main);
-	create_philo_structs(main);
-	init_mutex(main);
-	create_philo_threads(main);
+	if (create_forks(main))
+		return (1);
+	if (create_philo_structs(main))
+		return (1);
+	if (init_mutex(main))
+		return (1);
+	if (create_philo_threads(main))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:23:04 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/24 14:21:27 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/25 15:16:22 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	main(int ac, char **av)
 		free(main.args);
 		return (1);
 	}
-	init(&main);
+	if (init(&main))
+		return (1);
 	wait_until_end(&main);
 	free_memory(&main);
 	return (0);

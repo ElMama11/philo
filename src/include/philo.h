@@ -6,7 +6,7 @@
 /*   By: mverger <mverger@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 15:06:51 by mverger           #+#    #+#             */
-/*   Updated: 2022/10/20 16:09:51 by mverger          ###   ########.fr       */
+/*   Updated: 2022/10/25 15:17:37 by mverger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			process_lastmeal_time(t_philo *philo);
 int				is_philo_satisfied(t_philo *philo);
 
 /* philo_init.c */
-void			init(t_main *main);
+int				init(t_main *main);
 
 /* philo_parsing.c */
 int				parsing(t_main *main, int ac, char **av);
